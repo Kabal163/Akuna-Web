@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {HeaderModule} from "./modules/header/header.module";
+import {SidebarModule} from './modules/sidebar/sidebar.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {HeaderModule} from "./modules/header/header.module";
     BrowserModule,
     FormsModule,
     HttpModule,
-    HeaderModule
+    HeaderModule,
+    SidebarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
