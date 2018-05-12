@@ -10,9 +10,6 @@
   padding-top: 15px;
   padding-bottom: 15px;
   padding-right: 1em;
-}
-
-li {
   border-bottom: 1px solid #fff;
   border-top: 1px solid #fff;
 }
@@ -23,12 +20,28 @@ li:hover {
   border-top: 1px solid #e0e0e0;
 }
 
-.row {
+.sidebar-row {
   height: 100vh;
 }
 
-.sidebar {
+.sidebar-col {
   margin-left: 7px;
   border-right: 1px solid #e0e0e0;
   padding-right: 7px;
+}
+
+.nav-pills a:visited {
+  text-decoration: none;
+}
+
+.nav-pills a:link {
+  text-decoration: none;
+}
+
+.nav-pills a:hover {
+  text-decoration: none;
+}
+
+.nav-pills a:active {
+  text-decoration: none;
 }
