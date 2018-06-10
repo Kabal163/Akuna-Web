@@ -18,6 +18,6 @@ export class CreationFormComponent {
 
   createTeacher()
   {
-    this.creationService.createTeacher(this.teacher);
+    this.creationService.createTeacher(this.teacher).subscribe((data: String) => console.log(data))
   }
 }

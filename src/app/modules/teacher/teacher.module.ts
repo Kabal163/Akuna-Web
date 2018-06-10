@@ -11,4 +11,4 @@ import {CreationFormService} from './components/creationForm/creationForm.servic
   exports: [CreationFormComponent],
   providers: [CreationFormService]
 })
-export class TeacherCreationModule{}
+export class TeacherModule{}

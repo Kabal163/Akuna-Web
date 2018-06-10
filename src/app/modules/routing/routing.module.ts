@@ -1,10 +1,12 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {CreationFormComponent} from '../teacherCreation/components/creationForm/creationForm.component';
+import {CreationFormComponent} from '../teacher/components/creationForm/creationForm.component';
+import {AdminCreationFormComponent} from '../administrator/components/creationForm/adminCreationForm.component';
 
 const appRoutes: Routes = [
-  {path: '', component: CreationFormComponent},
-  {path: 'create-teacher', component: CreationFormComponent}];
+  {path: '', component: AdminCreationFormComponent},
+  {path: 'create-teacher', component: CreationFormComponent},
+  {path: 'create-administrator', component: AdminCreationFormComponent}];
 
 @NgModule({
   imports: [

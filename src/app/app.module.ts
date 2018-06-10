@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import {HeaderModule} from './modules/header/header.module';
 import {SidebarModule} from './modules/sidebar/sidebar.module';
 import {AppRoutingModule} from './modules/routing/routing.module';
-import {TeacherCreationModule} from './modules/teacherCreation/teacherCreation.module';
+import {TeacherModule} from './modules/teacher/teacher.module';
 import {RootContentModule} from './modules/rootContent/rootContent.module';
 import {HttpClientModule} from '@angular/common/http';
+import {AdministratorModule} from './modules/administrator/administrator.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {HttpClientModule} from '@angular/common/http';
     HeaderModule,
     SidebarModule,
     RootContentModule,
-    TeacherCreationModule
+    TeacherModule,
+    AdministratorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

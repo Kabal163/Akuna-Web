@@ -6,5 +6,4 @@ export class CreationFormModel
   email: String;
   phoneNumber: String;
   city: String;
-  street: String;
 }
