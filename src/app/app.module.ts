@@ -5,15 +5,18 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import {HeaderModule} from './modules/header/header.module';
 import {SidebarModule} from './modules/sidebar/sidebar.module';
-import {AppRoutingModule} from './modules/routing/routing.module';
 import {TeacherModule} from './modules/teacher/teacher.module';
-import {RootContentModule} from './modules/rootContent/rootContent.module';
 import {HttpClientModule} from '@angular/common/http';
 import {AdministratorModule} from './modules/administrator/administrator.module';
+import {LoginComponent} from './components/login.component';
+import {AppRoutingModule} from './modules/routing/routing.module';
+import {CallService} from './services/call.service';
+import {GetTokenService} from './services/getToken.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -21,11 +24,11 @@ import {AdministratorModule} from './modules/administrator/administrator.module'
     FormsModule,
     HeaderModule,
     SidebarModule,
-    RootContentModule,
     TeacherModule,
-    AdministratorModule
+    AdministratorModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [CallService, GetTokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
