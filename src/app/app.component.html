@@ -4,7 +4,7 @@
     <account-navbar></account-navbar>
   </div>
 </nav>
-<div class="row">
+<div class="row" *ngIf="token; else login">
   <div class="col-sm-3 col-md-3">
     <sidebar-frame></sidebar-frame>
   </div>
@@ -16,4 +16,7 @@
     </div>
   </div>
 </div>
+<ng-template #login>
+  <login-page></login-page>
+</ng-template>
 

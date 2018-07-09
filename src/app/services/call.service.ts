@@ -12,4 +12,11 @@ export class CallService
     headers.append("X-Authorization", "Bearer " + localStorage.getItem("token"));
     return this.http.post(url, body, {headers});
   }
+
+  getCall(url: string, body: any)
+  {
+    const headers = new HttpHeaders();
+    headers.append("X-Authorization", "Bearer " + localStorage.getItem("token"));
+    return this.http.get(url, {headers});
+  }
 }

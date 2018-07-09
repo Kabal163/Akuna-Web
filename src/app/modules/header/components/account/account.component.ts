@@ -5,5 +5,5 @@ import {Component} from "@angular/core";
   templateUrl: "./account.component.html"
 })
 export class AccountComponent {
-
+  token = localStorage.getItem("token");
 }

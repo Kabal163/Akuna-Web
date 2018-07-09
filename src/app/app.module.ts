@@ -8,15 +8,16 @@ import {SidebarModule} from './modules/sidebar/sidebar.module';
 import {TeacherModule} from './modules/teacher/teacher.module';
 import {HttpClientModule} from '@angular/common/http';
 import {AdministratorModule} from './modules/administrator/administrator.module';
-import {LoginComponent} from './components/login.component';
+import {AuthComponent} from './components/auth/auth.component';
 import {AppRoutingModule} from './modules/routing/routing.module';
 import {CallService} from './services/call.service';
 import {GetTokenService} from './services/getToken.service';
+import {AuthService} from './components/auth/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +29,7 @@ import {GetTokenService} from './services/getToken.service';
     AdministratorModule,
     AppRoutingModule
   ],
-  providers: [CallService, GetTokenService],
+  providers: [CallService, GetTokenService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
