@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UserLoginForm, UserRegisterForm} from './auth.model';
 
 @Injectable()
 export class AuthService
 {
   secretQuestionsUrl: string = "/api/auth/register/secretQuestion";
-  registerUrl: string = "/api/auth/register/admin";
+  registerUrl: string = "/api/auth/register";
   loginUrl: string = "/api/auth/login";
 
   constructor(private http: HttpClient){}
@@ -23,6 +23,7 @@ export class AuthService
 
   login(userLoginForm: UserLoginForm)
   {
-    return this.http.post(this.loginUrl, userLoginForm);
+    const headers = new HttpHeaders({"X-Requested-With": "XMLHttpRequest"});
+    return this.http.post(this.loginUrl, userLoginForm, {headers: headers});
   }
 }

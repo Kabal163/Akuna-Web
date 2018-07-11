@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UserLoginForm, UserRegisterForm, SecretQuestion} from './auth.model';
+import {UserLoginForm, UserRegisterForm, SecretQuestion, Token} from './auth.model';
 import {AuthService} from './auth.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class AuthComponent {
   rememberMe: boolean;
   loginAction: boolean;
   differentPasswords: boolean;
+
+  token: Token;
 
   constructor(private authService: AuthService)
   {
@@ -44,12 +46,12 @@ export class AuthComponent {
 
   login()
   {
-    if (this.rememberMe && this.userLoginForm.principals && this.userLoginForm.credentials)
-    {
-      localStorage.setItem("login", this.userLoginForm.principals);
-      localStorage.setItem("password", this.userLoginForm.credentials);
-    }
-
-    this.authService.login(this.userLoginForm).subscribe(data => console.log(data));
+    this.authService.login(this.userLoginForm).subscribe((data: Token) =>
+      {
+        console.log(data);
+        this.token = data;
+        localStorage.setItem("token", this.token.token);
+        localStorage.setItem("refreshToken", this.token.refreshToken);
+      });
   }
 }

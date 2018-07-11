@@ -1,6 +1,6 @@
 export class UserLoginForm {
-  principals: string;
-  credentials: string;
+  username: string;
+  password: string;
 }
 
 export class UserRegisterForm
@@ -21,4 +21,10 @@ export class SecretQuestion
 {
   id: number;
   question: string;
+}
+
+export class Token
+{
+  token: string;
+  refreshToken: string;
 }
