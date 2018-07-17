@@ -12,8 +12,7 @@ export class GetTokenService
   getToken()
   {
     const refreshToken = localStorage.getItem("refreshToken");
-    const headers = new HttpHeaders();
-    headers.append("Authorization", "bearer " + refreshToken);
+    const headers = new HttpHeaders({"Authorization": "bearer " + refreshToken});
 
     this.http.get(this.url, {headers}).subscribe((data: JSON) =>
       {

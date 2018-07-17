@@ -3,31 +3,27 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import {HeaderModule} from './modules/header/header.module';
-import {SidebarModule} from './modules/sidebar/sidebar.module';
-import {TeacherModule} from './modules/teacher/teacher.module';
 import {HttpClientModule} from '@angular/common/http';
-import {AdministratorModule} from './modules/administrator/administrator.module';
-import {AuthComponent} from './components/auth/auth.component';
-import {AppRoutingModule} from './modules/routing/routing.module';
 import {CallService} from './services/call.service';
 import {GetTokenService} from './services/getToken.service';
 import {AuthService} from './components/auth/auth.service';
+import {RouterModule} from '@angular/router';
+import {AuthComponent} from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent
-  ],
+    AuthComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    HeaderModule,
-    SidebarModule,
-    TeacherModule,
-    AdministratorModule,
-    AppRoutingModule
+    RouterModule.forRoot([
+      {path: "admin", loadChildren: "app/modules/admin/admin.module#AdminModule"},
+      {path: "teacher", loadChildren: "app/modules/teacher/teacher.module#TeacherModule"},
+      {path: "student", loadChildren: "app/modules/student/student.module#StudentModule"},
+      {path: "login", component: AuthComponent}
+    ])
   ],
   providers: [CallService, GetTokenService, AuthService],
   bootstrap: [AppComponent]

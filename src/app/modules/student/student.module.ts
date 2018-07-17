@@ -1,19 +1,19 @@
 import {NgModule} from '@angular/core';
-import {TeacherComponent} from './teacher.component';
+import {StudentComponent} from './student.component';
+import {AdminComponent} from '../admin/admin.component';
 import {RouterModule} from '@angular/router';
-import {StudentComponent} from '../student/student.component';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 let routing = RouterModule.forChild([
-  {path: "", component: TeacherComponent}
+  {path: "", component: StudentComponent}
 ]);
 
 @NgModule({
   imports: [CommonModule, FormsModule, routing],
-  declarations: [TeacherComponent]
+  declarations: [StudentComponent]
 })
-export class TeacherModule
+export class StudentModule
 {
 
 }

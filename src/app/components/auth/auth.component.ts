@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {UserLoginForm, UserRegisterForm, SecretQuestion, Token} from './auth.model';
 import {AuthService} from './auth.service';
+import * as moment from "moment";
+import {Router} from '@angular/router';
 
 @Component({
   selector: "login-page",
@@ -19,9 +21,8 @@ export class AuthComponent {
   loginAction: boolean;
   differentPasswords: boolean;
 
-  token: Token;
-
-  constructor(private authService: AuthService)
+  constructor(private authService: AuthService,
+              private router: Router)
   {
     this.principle = localStorage.getItem("login");
     this.credential = localStorage.getItem("password");
@@ -46,12 +47,94 @@ export class AuthComponent {
 
   login()
   {
-    this.authService.login(this.userLoginForm).subscribe((data: Token) =>
+    this.authService.login(this.userLoginForm).subscribe(authResult => this.setSession(authResult));
+  }
+
+  private setSession(authResult) {
+    console.log("setSession method");
+    const rawToken = authResult.token;
+    const refreshToken = authResult.refreshToken;
+
+    const token = this.authService.getDecodedAccessToken(rawToken);
+
+    console.log("decoded sub: " + token.sub);
+    console.log("decoded exp: " + token.exp);
+    console.log("decoded scopes: " + token.scopes);
+
+    const expiresAt = moment().add(token.exp,'second');
+
+    localStorage.setItem('token', rawToken);
+    localStorage.setItem("refreshToken", refreshToken);
+    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
+
+    this.navigateToHomePage(token);
+  }
+
+  private navigateToHomePage(token: any)
+  {
+    const scopes: string[] = token.scopes;
+    const role = this.resolveRole(scopes);
+
+    if (role === "ADMIN") this.router.navigateByUrl("/admin");
+    else if (role === "TEACHER") this.router.navigateByUrl("/teacher");
+    else if (role === "PARENT") this.router.navigateByUrl("/parent");
+    else if (role === "STUDENT") this.router.navigateByUrl("/student");
+    else
+    {
+      this.authService.logout();
+      this.router.navigateByUrl("/login");
+    }
+  }
+
+  /* The method tries to retrieve the most important role for the user.
+   *
+   * Roles priority:
+   * 1. ADMIN
+   * 2. TEACHER
+   * 3. PARENT
+   * 4. STUDENT
+   *
+   * It needs in case when the user has multiple roles.
+   */
+
+  private resolveRole(scopes: string[]): string
+  {
+    let role: string;
+
+    if (scopes.length = 0)
+    {
+      this.authService.logout();
+      this.router.navigateByUrl("/login")
+    }
+
+    if (scopes.length = 1)
+    {
+      role = scopes[0];
+    }
+    else
+    {
+      for (let element in scopes)
       {
-        console.log(data);
-        this.token = data;
-        localStorage.setItem("token", this.token.token);
-        localStorage.setItem("refreshToken", this.token.refreshToken);
-      });
+        if (element === "ADMIN")
+        {
+          role = element;
+          break;
+        }
+        else if (element === "TEACHER")
+        {
+          role = element;
+        }
+        else if ((element === "PARENT" && !role) || role === "STUDENT")
+        {
+          role = element;
+        }
+        else if (element === "STUDENT" && !role)
+        {
+          role = element;
+        }
+      }
+    }
+
+    return role;
   }
 }
