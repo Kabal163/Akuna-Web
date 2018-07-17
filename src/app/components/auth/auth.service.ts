@@ -64,6 +64,11 @@ export class AuthService
     }
   }
 
+  getCurrentRole()
+  {
+
+  }
+
 
 
 }

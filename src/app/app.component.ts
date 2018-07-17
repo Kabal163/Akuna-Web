@@ -12,10 +12,14 @@ export class AppComponent
   constructor(private router: Router,
               private auth: AuthService)
   {
-    // if (this.auth.isLoggedOut())
-    // {
-    //   this.router.navigateByUrl("/login");
-    // }
+    if (this.auth.isLoggedOut())
+    {
+      this.router.navigateByUrl("/login");
+    }
+    else
+    {
+
+    }
   }
 
 

@@ -62,18 +62,19 @@ export class AuthComponent {
     console.log("decoded scopes: " + token.scopes);
 
     const expiresAt = moment().add(token.exp,'second');
+    const role: string = this.resolveRole(token.scopes);
 
     localStorage.setItem('token', rawToken);
     localStorage.setItem("refreshToken", refreshToken);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem("role", role);
 
-    this.navigateToHomePage(token);
+    this.navigateToHomePage(role);
   }
 
-  private navigateToHomePage(token: any)
+  private navigateToHomePage(role: string)
   {
-    const scopes: string[] = token.scopes;
-    const role = this.resolveRole(scopes);
+
 
     if (role === "ADMIN") this.router.navigateByUrl("/admin");
     else if (role === "TEACHER") this.router.navigateByUrl("/teacher");
@@ -81,6 +82,7 @@ export class AuthComponent {
     else if (role === "STUDENT") this.router.navigateByUrl("/student");
     else
     {
+      console.log("No one role is valid");
       this.authService.logout();
       this.router.navigateByUrl("/login");
     }
@@ -101,13 +103,12 @@ export class AuthComponent {
   {
     let role: string;
 
-    if (scopes.length = 0)
+    if (scopes.length == 0)
     {
-      this.authService.logout();
-      this.router.navigateByUrl("/login")
+      return null;
     }
 
-    if (scopes.length = 1)
+    if (scopes.length == 1)
     {
       role = scopes[0];
     }
@@ -134,7 +135,6 @@ export class AuthComponent {
         }
       }
     }
-
     return role;
   }
 }
